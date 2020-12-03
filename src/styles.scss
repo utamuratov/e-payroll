@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+$base-color: #2b437c;
+$secondary-color: #fff;
+$primary-color: #ea7036;
+
+.content {}
+
+.header {
+  background-color: $base-color;
+  height: 80px;
+
+  a {
+    color: $secondary-color;
+  }
+}
