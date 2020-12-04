@@ -1,0 +1,20 @@
+<div class="breadcrumb" *ngIf="menuItems?.length>0">
+  <ol class="breadcrumb">
+    <ng-container *ngIf="last; else notLast">
+      <ng-container *ngFor="let item of menuItems;">
+        <li class="breadcrumb-item"><a routerLink="{{item.url}}">{{item.label}}</a></li>
+      </ng-container>
+      <li class="breadcrumb-item active">{{last}}</li>
+    </ng-container>
+    <ng-template #notLast>
+      <ng-container *ngFor="let item of menuItems; let isLast = last; let i = index">
+        <ng-container *ngIf="!isLast; else last">
+          <li class="breadcrumb-item"><a routerLink="{{item.url}}">{{item.label}}</a></li>
+        </ng-container>
+        <ng-template #last>
+          <li class="breadcrumb-item active">{{item.label}}</li>
+        </ng-template>
+      </ng-container>
+    </ng-template>
+  </ol>
+</div>

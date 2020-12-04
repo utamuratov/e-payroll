@@ -4,9 +4,10 @@ import { EmployeeComponent } from './employee.component';
 import { AddEditEmployeeComponent } from './add-edit-employee/add-edit-employee.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeRoutingModule } from './employee.routing';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
-  imports: [CommonModule, EmployeeRoutingModule],
+  imports: [CommonModule, EmployeeRoutingModule, SharedModule],
   declarations: [
     EmployeeComponent,
     AddEditEmployeeComponent,

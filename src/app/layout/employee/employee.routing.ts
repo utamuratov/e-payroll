@@ -8,10 +8,16 @@ const routes: Routes = [
   {
     path: '',
     component: EmployeeComponent,
+    data: {
+      breadcrumb: 'Employee',
+    },
     children: [
       {
         path: '',
         component: EmployeeListComponent,
+        data: {
+          breadcrumb: null,
+        },
       },
       {
         path: 'add',
