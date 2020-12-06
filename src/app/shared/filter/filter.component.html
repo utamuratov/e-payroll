@@ -1,0 +1,36 @@
+<div class="filter">
+  <div class="filter__search-text">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <a (click)="filter()" href="javascript: void(0);" class="input-group-text filter__search-text--border-right">
+          <img src="assets/search.svg" alt="">
+        </a>
+      </div>
+      <input [(ngModel)]="search.searchText" type="text" class="form-control filter__search-text__input"
+        id="staticEmail" placeholder="Search employee name or number" value="">
+    </div>
+  </div>
+  <div class="filter__search-status">
+    <label for="statuses" class="col-form-label">Status: </label>
+    <ng-select class="filter__search-status__input" [items]="statuses" bindLabel="text" bindValue="value" [(ngModel)]="search.status">
+    </ng-select>
+    <div (click)="filter()" class="filter__search-status__filter-img">
+      <img src="assets/filter.svg" alt="">
+    </div>
+  </div>
+  <div class="filter__search-organization-level">
+    <label for="staticEmail" class="col-form-label">Organization level: </label>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control filter__search-organization-level__input"
+        placeholder="Enter organizational level" aria-label="Amount (to the nearest dollar)">
+      <div class="input-group-append">
+        <span class="input-group-text filter__search-organization-level--border-left-none">
+          <img src="assets/add.svg" alt="">
+        </span>
+      </div>
+    </div>
+    <div class="filter__search-organization-level__filter-img">
+      <img src="assets/filter.svg" alt="">
+    </div>
+  </div>
+</div>

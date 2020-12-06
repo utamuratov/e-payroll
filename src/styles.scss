@@ -1,19 +1,306 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
 :root {
   --primary: #2b437c !important;
   --secondary: #fff !important;
   --orange: #ea7036 !important;
   --light: #f5f5f5 !important;
+  --lighter: #FEFEFE !important;
+  --dark: #373737 !important;
+  --grey: #898989 !important;
   --height-header: 72px;
   --height-footer: 40px;
+  --blue: #6383CD !important;
+  --ligth-blue: #ECF0FA;
+}
+
+@mixin menu-list-group {
+  background-color: var(--ligth-blue);
+  border-left: 4px solid var(--primary);
+}
+
+@mixin asterisk {
+  content: '*';
+  color: var(--orange);
+}
+
+@mixin asc-desc($conten-url) {
+  content: $conten-url;
+  position: relative;
+  margin-left: -10px;
+  margin-right: 3px;
+}
+
+h2 {
+  color: var(--dark);
+  font-size: 19px;
+  line-height: 25px;
+}
+
+h3 {
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 21px;
+}
+
+.ng-select .ng-select-container {
+  height: 37px;
+  border-radius: 2px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.status--inactive {
+  color: var(--orange);
+}
+
+.left-menu {
+  display: grid;
+
+  &__item {
+    padding: 12px 24px;
+    color: var(--dark);
+    border-left: 4px solid transparent;
+
+    &:hover {
+      color: var(--primary);
+      text-decoration: none;
+      cursor: pointer;
+      @include menu-list-group;
+    }
+
+    &--active {
+      @include menu-list-group;
+    }
+
+    span:after {
+      @include asterisk;
+    }
+  }
+}
+
+.btn {
+  border-radius: 2px;
+  padding-left: 1.75em;
+  padding-right: 1.75em;
+}
+
+.btn-outline-primary {
+  color: var(--primary);
+  border-color: var(--primary);
+
+  &:hover {
+    color: var(--secondary);
+    background-color: var(--primary);
+    border-color: var(--primary);
+  }
+}
+
+.btn-outline-light {
+  border-color: var(--light);
+}
+
+.opacity-3 {
+  opacity: 0.6;
+}
+
+.header-inside {
+  display: flex;
+
+  &__left {
+    display: flex;
+    &__h1{
+      min-width: 220px;
+    }
+    &__details {
+      display: flex;
+      padding-top: 15px;
+      a {
+        margin-left: 5px;
+      }
+      h2 {
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+    }
+  }
+
+  &__right {
+    width: 100%;
+    text-align: right;
+
+    &__a {
+      img {
+        margin-bottom: 5px;
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+.table {
+  margin-top: 24px;
+
+  &__tr {
+    &--inactive {
+      background-color: #FEF8F5;
+      color: var(--orange);
+    }
+  }
+
+  thead th {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    color: var(--dark);
+
+    &.sort-asc:before {
+      @include asc-desc(url("./assets/arrow-top.svg"));
+    }
+
+    &.sort-desc:before {
+      @include asc-desc(url("./assets/arrow-bottom.svg"));
+    }
+  }
+}
+
+h1 {
+  height: 37px;
+  font-weight: 300;
+  font-size: 28px;
+  line-height: 37px;
+  margin-bottom: 16px;
+  margin-top: 8px;
+  columns: var(--dark);
 }
 
 .form-control {
   border: 1px solid #D0D0D0 !important;
   box-sizing: border-box !important;
   border-radius: 2px !important;
-  background: #FEFEFE !important;
+  background: var(--lighter) !important;
   height: 37px !important;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: #e9ecef !important;
+  opacity: 1;
+}
+
+.form-control:focus {
+  color: #495057;
+  outline: 0;
+  box-shadow: none;
+}
+
+.input-group-text {
+  padding: 0.335rem .75rem;
+  border-radius: 2px !important;
+  background-color: var(--lighter);
+}
+
+.filter {
+  display: flex;
+  height: 37px;
+
+  &__search-text {
+    width: 300px;
+
+    &__input {
+      padding-left: 0;
+      border-left: none !important;
+      border-top-left-radius: 0px !important;
+      border-bottom-left-radius: 0px !important;
+    }
+
+    &--border-right {
+      border-right: none;
+      border-top-right-radius: 0px !important;
+      border-bottom-right-radius: 0px !important;
+    }
+  }
+
+  &__search-status {
+    display: flex;
+    margin-left: 24px;
+    width: 224px;
+
+    &__input {
+      width: 150px;
+      margin-left: 8px;
+    }
+
+    &__filter-img {
+      cursor: pointer;
+      padding: 4px 10px;
+    }
+  }
+
+  &__search-organization-level {
+    display: flex;
+    margin-left: 24px;
+    width: 412px;
+
+    .input-group {
+      width: 250px;
+      margin-left: 8px;
+    }
+
+    &__input {
+      border-top-right-radius: 0px !important;
+      border-bottom-right-radius: 0px !important;
+    }
+
+    &--border-left-none {
+      border-top-left-radius: 0px !important;
+      border-bottom-left-radius: 0px !important;
+    }
+
+    &__filter-img {
+      padding: 4px 10px;
+    }
+  }
+}
+
+::-webkit-input-placeholder {
+  /* Edge */
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 21px;
+  color: var(--grey);
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 21px;
+  color: var(--grey);
+}
+
+::placeholder {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 21px;
+  color: #898989;
+}
+
+.col-form-label {
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 600;
+
+  &--required:after {
+    @include asterisk;
+  }
 }
 
 .content {
@@ -21,15 +308,47 @@
   margin-top: var(--height-header);
   padding: 0 24px;
   background-color: var(--secondary);
+  overflow: auto;
 }
 
 .header {
   background-color: var(--primary);
   height: var(--height-header);
 
+  li {
+    margin-left: 24px;
+
+    .user-img {
+      margin-bottom: 4px;
+    }
+  }
+
   a {
     color: var(--secondary);
   }
+
+  a:before {
+    content: '|';
+    color: var(--blue);
+    padding-right: 24px;
+  }
+
+  &__p {
+    color: var(--secondary);
+    margin-right: 10px;
+    margin-top: 7px;
+    font-size: 12px;
+  }
+
+  &__right {
+    display: flex;
+
+    &__a--margin {
+      margin-top: 16px !important;
+      margin-left: 24px;
+    }
+  }
+
 }
 
 .footer {
@@ -47,7 +366,12 @@
         line-height: 18px;
         padding-top: 0px !important;
         padding-bottom: 0px !important;
-        border-right: 1px solid var(--primary);
+      }
+
+      &:not(:last-child) {
+        a {
+          border-right: 1px solid var(--primary) !important;
+        }
       }
     }
   }

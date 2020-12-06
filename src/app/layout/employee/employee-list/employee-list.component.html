@@ -1,53 +1,65 @@
 <app-breadcrumb></app-breadcrumb>
-<h3>Employees(2,500)</h3>
-<div class="row">
-  <div class="col-7">
-    <div class="row filter">
-      <div class="col-3 filter__search-text">
-        <div class="form-group">
-          <input type="text" readonly class="form-control" id="staticEmail" value="email@example.com">
-        </div>
-      </div>
-      <div class="col-3 filter__search-status">
-        <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">Status</label>
-          <div class="col-sm-10">
-            <input type="text" readonly class="form-control" id="staticEmail" value="email@example.com">
-          </div>
-        </div>
-      </div>
-      <div class="col-6 filter__search-organization-level">
-        <div class="form-group row">
-          <label for="staticEmail" class="col-sm-4 col-form-label">Organization level</label>
-          <div class="col-sm-8">
-            <input type="text" readonly class="form-control" id="staticEmail" value="email@example.com">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-5">
-
+<h1>Employees({{employees?.length}})</h1>
+<div class="header-inside">
+  <app-filter (searchChanged)="searchChanged($event)"></app-filter>
+  <div class="header-inside__right">
+    <a routerLink="add" class="header-inside__right__a">
+      <img src="assets/add.svg" alt="">
+    </a>
   </div>
 </div>
 <table class="table">
   <thead>
     <tr>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Edit</th>
+      <th
+      class="pointer"
+      (click)="sort.employeeNumber = !sort.employeeNumber; loadEmployees()"
+      [ngClass]="sort.employeeNumber == null ? '' :
+      (!sort.employeeNumber ? 'sort-desc' : 'sort-asc')">Employee №</th>
+      <th
+      class="pointer"
+      (click)="sort.employeeFirstName = !sort.employeeFirstName; loadEmployees()"
+      [ngClass]="sort.employeeFirstName == null ? '' :
+      (!sort.employeeFirstName ? 'sort-desc' : 'sort-asc')">First name</th>
+      <th>Last name</th>
+      <th>Division</th>
+      <th>Sub-factory</th>
+      <th>Department code</th>
+      <th>Department name</th>
+      <th>Date joined</th>
+      <th>Identity card</th>
+      <th>Date of Birth</th>
+      <th>Age</th>
+      <th>Status</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td scope="row"></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td scope="row"></td>
-      <td></td>
-      <td></td>
+    <tr [ngClass]="{'table__tr--inactive': statuses[employee?.status]?.value == 1}" *ngFor="let employee of employees">
+      <td class="text-center">
+        <a [routerLink]="['edit', employee.id]">
+          <img src="assets/pencil.svg" alt="">
+        </a>
+      </td>
+      <td>{{employee.employeeNumber}}</td>
+      <td>{{employee.firstName}}</td>
+      <td>{{employee.lastName}}</td>
+      <td>{{divisions[employee?.division]?.text}}</td>
+      <td>{{subFactories[employee?.subFactory]?.text}}</td>
+      <td>{{departments[employee?.department]?.value}}</td>
+      <td>{{departments[employee?.department]?.text}}</td>
+      <td>{{employee.dateJoined}}</td>
+      <td>{{employee.idCard}}</td>
+      <td>{{employee.dateOfBirth}}</td>
+      <td>{{employee.age}}</td>
+      <td class="text-center">
+        <ng-container *ngIf="statuses[employee?.status]?.value == 1; else active">
+          <img src="assets/cancel.svg" alt="">
+        </ng-container>
+        <ng-template #active>
+          <img src="assets/success.svg" alt="">
+        </ng-template>
+      </td>
     </tr>
   </tbody>
 </table>

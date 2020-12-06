@@ -1,3 +1,228 @@
-<p>
-  add-edit-employee works!
-</p>
+<app-breadcrumb></app-breadcrumb>
+<div class="header-inside">
+  <div class="header-inside__left">
+    <h1 class="header-inside__left__h1">{{isNew ? 'Add' : 'Edit'}} employee</h1>
+    <div class="header-inside__left__details" *ngIf="!isNew">
+      <a href="javascript:void(0);" [ngClass]="{'opacity-3': isFirst}" (click)="first()">
+        <img src="assets/left-first.svg" alt="">
+      </a>
+      <a href="javascript:void(0);" [ngClass]="{'opacity-3': isFirst}" (click)="prev(id)">
+        <img src="assets/left-previous.svg" alt="">
+      </a>
+      <h2>{{form.controls.firstName.value}}</h2>
+      <a href="javascript:void(0);" [ngClass]="{'opacity-3': isLast}" (click)="next(id)">
+        <img src="assets/right-next.svg" alt="">
+      </a>
+      <a href="javascript:void(0);" [ngClass]="{'opacity-3': isLast}"  (click)="last()">
+        <img src="assets/right-last.svg" alt="">
+      </a>
+    </div>
+  </div>
+  <div class="header-inside__right">
+    <button class="btn btn-outline-primary" routerLink="/employee">
+      CLOSE
+    </button>
+    <button class="btn btn-light ml-3" (click)="save()">
+      SAVE
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-2">
+    <div class="left-menu">
+      <a class="left-menu__item" (click)="isActiveMainTab = true"
+        [ngClass]="{'left-menu__item--active': isActiveMainTab}">
+        <span>Main</span>
+      </a>
+      <a class="left-menu__item" (click)="isActiveMainTab = false"
+        [ngClass]="{'left-menu__item--active': !isActiveMainTab}">
+        Children
+      </a>
+    </div>
+  </div>
+  <div class="col-10">
+    <div class="tab-content" id="nav-tabContent">
+      <ng-container *ngIf="isActiveMainTab; else children">
+        <div class="main">
+          <h2>Main</h2>
+          <hr>
+          <div class="row main__body" [formGroup]="form">
+            <div class="col-3">
+              <div class="form-group">
+                <label for="employeeNumber" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.employeeNumber.errors?.required}">Employee
+                  №</label>
+                <input id="employeeNumber" formControlName="employeeNumber" type="text" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="firstName" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.firstName.errors?.required}">First name</label>
+                <input id="firstName" formControlName="firstName" type="text" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="lastName" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.lastName.errors?.required}">Last name</label>
+                <input id="lastName" formControlName="lastName" type="text" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="staticEmail" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.gender.errors?.required}">Gender</label>
+                <div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" formControlName="gender" id="male" value="1">
+                    <label class="col-form-label" for="male">Male</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" formControlName="gender" id="female" value="0">
+                    <label class="col-form-label" for="female">Female</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="dateOfBirth" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.dateOfBirth.errors?.required}">Date of
+                  Birth</label>
+                <div class="d-flex">
+                  <input id="dateOfBirth" placeholder="12/12/2020" formControlName="dateOfBirth" type="text" class="form-control col-8">
+                  <div class="col-4 text-center pt-1">31 years</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="dateJoined" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.dateJoined.errors?.required}">Date
+                  joined</label>
+                <div class="d-flex">
+                  <input id="dateJoined" placeholder="12/12/2020" formControlName="dateJoined" type="text" class="form-control col-8">
+                  <div class="col-4 text-center pt-1">31 years</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label">Status</label>
+                <p [ngClass]="{'status--inactive': statuses[form.controls.status.value]?.value == 1}">
+                  {{statuses[form.controls.status.value]?.text}}</p>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label for="subFactory" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.subFactory.errors?.required}">Sub-factory</label>
+                <ng-select [items]="subFactories" bindLabel="text" bindValue="value" formControlName="subFactory">
+                </ng-select>
+              </div>
+              <div class="form-group">
+                <label for="division" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.division.errors?.required}">Division</label>
+                <ng-select [items]="divisions" bindLabel="text" bindValue="value" formControlName="division">
+                </ng-select>
+              </div>
+              <div class="form-group">
+                <label for="department" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.department.errors?.required}">Department</label>
+                <ng-select [items]="departments" bindLabel="text" bindValue="value" formControlName="department">
+                </ng-select>
+              </div>
+              <div class="form-group">
+                <label for="idType" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.idType.errors?.required}">ID type</label>
+                <ng-select [items]="idTypes" bindLabel="text" bindValue="value" formControlName="idType">
+                </ng-select>
+              </div>
+              <div class="form-group">
+                <label for="idCard" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.idCard.errors?.required}">ID</label>
+                <input id="idCard" formControlName="idCard" type="text" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="status" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.status.errors?.required}">Status</label>
+                <ng-select [items]="statuses" bindLabel="text" bindValue="value" formControlName="status">
+                </ng-select>
+              </div>
+              <div class="form-group">
+                <label for="employeeType" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.employeeType.errors?.required}">Employee
+                  type</label>
+                <ng-select [items]="employeeTypes" bindLabel="text" bindValue="value" formControlName="employeeType">
+                </ng-select>
+              </div>
+
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label for="city" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.city.errors?.required}">City name</label>
+                <ng-select [items]="cities" bindLabel="text" bindValue="value" formControlName="city">
+                </ng-select>
+              </div>
+              <div class="form-group">
+                <label for="zipCode" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.zipCode.errors?.required}">Zop code</label>
+                <input id="zipCode" formControlName="zipCode" type="text" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="street" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.street.errors?.required}">Street</label>
+                <input id="street" formControlName="street" type="text" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="phone" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.phone.errors?.required}">Phone</label>
+                <input id="phone" formControlName="phone" type="text" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="mobilePhone" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.mobilePhone.errors?.required}">Mobile
+                  number</label>
+                <input id="mobilePhone" formControlName="mobilePhone" type="text" class="form-control">
+              </div>
+            </div>
+            <div class="col-3">
+              <h3>Spouse information</h3>
+              <div class="form-group">
+                <label for="staticEmail" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.familyStatus.errors?.required}">Family
+                  status</label>
+                <ng-select [items]="familyStatuses" bindLabel="text" bindValue="value" formControlName="familyStatus"
+                  (change)="familyStatusChanged($event)">
+                </ng-select>
+              </div>
+              <div class="form-group">
+                <label for="coupleFirstName" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.coupleFirstName.errors?.required}">First
+                  name</label>
+                <input id="coupleFirstName" formControlName="coupleFirstName" type="text" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="coupleIdCard" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.coupleIdCard.errors?.required}">ID</label>
+                <input id="coupleIdCard" formControlName="coupleIdCard" type="text" class="form-control">
+              </div>
+              <h3>Bank information</h3>
+              <div class="form-group">
+                <label for="staticEmail" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.bank.errors?.required}">Bank</label>
+                <ng-select [items]="banks" bindLabel="text" bindValue="value" formControlName="bank">
+                </ng-select>
+              </div>
+              <div class="form-group">
+                <label for="staticEmail" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.branch.errors?.required}">Branch</label>
+                <ng-select [items]="branches" bindLabel="text" bindValue="value" formControlName="branch">
+                </ng-select>
+              </div>
+              <div class="form-group">
+                <label for="staticEmail" class="col-form-label"
+                  [ngClass]="{'col-form-label--required': form.controls.account.errors?.required}">Account</label>
+                <ng-select [items]="accounts" bindLabel="text" bindValue="value" formControlName="account">
+                </ng-select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #children>
+        Children
+      </ng-template>
+    </div>
+  </div>
+</div>

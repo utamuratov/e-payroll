@@ -22,10 +22,16 @@ const routes: Routes = [
       {
         path: 'add',
         component: AddEditEmployeeComponent,
+        data: {
+          breadcrumb: 'Add employee',
+        },
       },
       {
         path: 'edit/:id',
         component: AddEditEmployeeComponent,
+        data: {
+          breadcrumb: 'Edit employee',
+        },
       },
     ],
   },

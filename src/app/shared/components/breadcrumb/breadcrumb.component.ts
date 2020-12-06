@@ -40,8 +40,6 @@ export class BreadcrumbComponent implements OnInit {
 
   /**
    *
-   * @param router
-   * @param activatedRoute
    */
   constructor(private activatedRoute: ActivatedRoute) {}
 
@@ -77,7 +75,7 @@ export class BreadcrumbComponent implements OnInit {
         url += `/${routeURL}`;
       }
 
-      const label = child.snapshot.data['breadcrumb'];
+      const label = child.snapshot.data.breadcrumb;
       if (!isNullOrUndefined(label)) {
         breadcrumbs.push({ label, url });
       }
