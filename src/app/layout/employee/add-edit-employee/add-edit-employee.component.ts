@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { debug } from 'console';
 import { Employee } from 'src/app/models/employee.model';
 import { SelectItem } from 'src/app/models/select-item.model';
 import {
